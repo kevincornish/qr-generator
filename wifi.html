@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>QR Code Generator</title>
+   <link href="tailwind.min.css" rel="stylesheet" type="text/css" />
+   <style>
+      #qrcode {
+         width: 395px;
+         margin: 2rem auto;
+         font: 16px sans-serif;
+      }
+   </style>
+   <script src="https://cdn.rawgit.com/amanuel/JS-HTML5-QRCode-Generator/master/qrcode.js"></script>
+   <script src="https://cdn.rawgit.com/amanuel/JS-HTML5-QRCode-Generator/master/html5-qrcode.js"></script>
+</head>
+
+<body>
+   <div class="w-full h-full bg-gray-800 absolute flex flex-row justify-center items-center">
+      <div class="bg-gray-300 m-auto shadow-lg p-5 rounded">
+         <div class="flex flex-col justify-center w-full h-full items-center">
+            <div class="flex flex-row items-center h-10 rounded border-gray-900 bg-gray-800 border-1 text-white ">
+               <a class="h-full flex-2 pr-2 pl-2 border-l-gray-900 border-l-1 hover:bg-gray-700"
+                  href="index.html">Home</a>
+            </div>
+            <div class="flex flex-row items-center h-10 rounded border-gray-900 bg-gray-800 border-1 text-white "></div>
+            <form id="form">
+               <input id="ssid" placeholder="SSID">
+               <input id="password" placeholder="Password">
+               <select id="enc">
+                  <option>WPA</option>
+                  <option>WEP</option>
+               </select>
+               <label>Hidden?</label><input type="checkbox" id="hidden">
+            </form>
+         </div>
+         <div id="qrcode" class="m-2">
+            <img>
+         </div>
+      </div>
+   </div>
+   </div>
+   <script>
+      function updateQRCode() {
+         var ssid = document.getElementById("ssid").value;
+         var pw = document.getElementById("password").value;
+         var enc = document.getElementById("enc").value;
+         var hidden = document.getElementById("hidden").checked;
+         var qrcode = document.getElementById("qrcode");
+
+         var text = "WIFI:S:" + ssid + ";T:" + enc + ";P:" + pw + ";H:" + hidden + ";;";
+
+         qrcode.replaceChild(showQRCode(text), qrcode.lastChild);
+      }
+
+      document.getElementById("form").onchange = updateQRCode;
+   </script>
